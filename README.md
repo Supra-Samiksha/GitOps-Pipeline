@@ -1,5 +1,9 @@
 # AWS GitOps Infrastructure & Automated CI/CD Pipeline Suite
 
+**Repositories Used**
+https://github.com/Supra-Samiksha/node-app
+https://github.com/Supra-Samiksha/kubernetes-manifest
+
 ## 📋 Project Overview
 
 A **production-ready, fully automated CI/CD pipeline** that orchestrates containerized application deployment on Amazon EKS (Elastic Kubernetes Service) using a **GitOps-first architecture**. This suite automates the entire workflow from source code commit to live Kubernetes rollout, eliminating manual deployment steps and reducing infrastructure provisioning time.
