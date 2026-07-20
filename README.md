@@ -675,38 +675,6 @@ kubectl apply -f network-policy.yaml
 
 ---
 
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these guidelines:
-
-1. Create a feature branch (`git checkout -b feature/improvement`)
-2. Commit changes with clear messages (`git commit -m "Add feature"`)
-3. Push to branch (`git push origin feature/improvement`)
-4. Open a Pull Request with detailed description
-
----
-
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-## 📧 Support & Issues
-
-For issues, questions, or feature requests:
-- Create an Issue on GitHub
-- Check existing documentation
-- Review Jenkins logs: `/var/log/jenkins/jenkins.log`
-- Check Kubernetes events: `kubectl get events -A`
-- Monitor ArgoCD UI for sync errors
-
-**Last Updated:** January 2025  
-**Maintained By:** [Your Organization]  
-**Version:** 1.0.0
-
----
-
 ## Quick Command Reference
 
 ```bash
