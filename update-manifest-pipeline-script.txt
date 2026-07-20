@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+
+    parameters {
+        string(name: 'IMAGE_TAG', defaultValue: 'latest', description: 'Docker Image Tag to Deploy')
+    }
+
+    environment {
+        MANIFEST_REPO_URL = 'https://github.com/Supra-Samiksha/kubernetes-manifest.git'
+        GIT_CREDENTIALS_ID = 'github-credentials' // Configured in Jenkins Credentials Manager
+    }
+
+    stages {
+        stage('Checkout Manifest Repo') {
+            steps {
+                git branch: 'main', credentialsId: env.GIT_CREDENTIALS_ID, url: env.MANIFEST_REPO_URL
+            }
+        }
+
+        stage('Update Deployment Tag') {
+            steps {
+                script {
+                    echo "Updating image tag to ${params.IMAGE_TAG} in deployment.yaml..."
+                    sh """
+                        sed -i 's|image: .*node-app:.*|image: 123456789012.dkr.ecr.ap-south-1.amazonaws.com/node-app:${params.IMAGE_TAG}|g' deployment.yaml
+                    """
+                }
+            }
+        }
+
+        stage('Commit & Push Manifest Changes') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: env.GIT_CREDENTIALS_ID, usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
+                        sh """
+                            git config user.email "jenkins@ci-cd.local"
+                            git config user.name "Jenkins CI"
+                            git add deployment.yaml
+                            git commit -m "Automated update: Set image tag to ${params.IMAGE_TAG}" || echo "No changes to commit"
+                            git push https://${GIT_USER}:${GIT_PASS}@github.com/Supra-Samiksha/kubernetes-manifest.git main
+                        """
+                    }
+                }
+            }
+        }
+    }
+}
